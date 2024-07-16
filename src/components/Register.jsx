@@ -23,7 +23,6 @@ export const Register = ({ switchAuthHandler }) => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    console.log("Datos de registro:", formData);
     await register(formData.name, formData.email, formData.password, formData.address, formData.phone);
   };
 
