@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from '../../assets/img/logo.png';
 import { FiUser, FiShoppingCart, FiSearch, FiMapPin, FiMenu, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+        setIsAuthenticated(!!user);
+    }, []);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('name');
+        localStorage.removeItem('num');
+        window.location.href = './auth';
     };
 
     return (
@@ -30,30 +43,21 @@ export const Navbar = () => {
                     </div>
                 </div>
 
-                {/* Mobile Menu Button */}
-                <div className="flex lg:hidden items-center">
-                    <button
-                        onClick={toggleMenu}
-                        className="p-2 focus:outline-none"
-                    >
-                        {isOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
-                    </button>
-                </div>
-
                 {/* Desktop Menu */}
                 <div className={`lg:flex items-center space-x-4 ${isOpen ? 'block' : 'hidden'}`}>
-                    <Link to="/mi-cuenta" className="flex items-center space-x-1 p-2">
-                        <FiUser className="h-6 w-6" />
-                        <span>Mi cuenta</span>
-                    </Link>
-                    <Link to="/carrito" className="flex items-center space-x-1 p-2">
-                        <FiShoppingCart className="h-6 w-6" />
-                        <span>Carrito</span>
-                    </Link>
-                    <Link to="/ubicacion" className="hidden lg:flex items-center space-x-1 p-2">
-                        <FiMapPin className="h-6 w-6" />
-                        <span>Guatemala</span>
-                    </Link>
+                    {isAuthenticated ? (
+                        <>
+                            <button onClick={handleLogout} className="flex items-center space-x-1 p-2">
+                                <FiUser className="h-6 w-6" />
+                                <span>Logout</span>
+                            </button>
+                        </>
+                    ) : (
+                        <Link to="/auth" className="flex items-center space-x-1 p-2">
+                            <FiUser className="h-6 w-6" />
+                            <span>Login</span>
+                        </Link>
+                    )}
                 </div>
             </div>
 

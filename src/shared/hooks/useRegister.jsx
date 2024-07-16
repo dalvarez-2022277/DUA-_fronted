@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { register as registerRequest } from "../../services/api";
 import toast from "react-hot-toast";
 
-export const useRegister = () => {
+export const useRegister = (switchAuthHandler) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -30,7 +30,9 @@ export const useRegister = () => {
 
       localStorage.setItem("user", JSON.stringify(userDetails));
 
-      navigate("/auth");
+      toast.success('Solicitud enviada exitosamente');
+      navigate('/');
+
     } catch (error) {
       console.error("Error en el registro:", error);
       toast.error("Ocurrió un error al registrarse, intenta de nuevo");

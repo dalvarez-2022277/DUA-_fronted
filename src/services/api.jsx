@@ -5,21 +5,7 @@ const apiClient = axios.create({
   timeout: 5000, // Aumentar el tiempo de espera a 5000ms
 });
 
-apiClient.interceptors.request.use(
-  (config) => {
-    const userDetails = localStorage.getItem("user");
-
-    if (userDetails) {
-      const token = JSON.parse(userDetails).token;
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (e) => {
-    return Promise.reject(e);
-  }
-);
-
+  
 export const login = async (data) => {
   try {
     return await apiClient.post("/auth/login", data);
