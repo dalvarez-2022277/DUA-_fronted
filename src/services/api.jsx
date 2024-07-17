@@ -41,3 +41,15 @@ export const getItems = async () => {
     };
   }
 }
+export const getUserById = async (id) => {
+  try {
+    const response = await apiClient.get(`/user/getOne/${id}`);
+    return response.data;
+  } catch (e) {
+    console.error(`Error en getUserById para el usuario con ID ${id}:`, e);
+    return {
+      error: true,
+      e,
+    };
+  }
+};

@@ -27,7 +27,7 @@ export const Register = ({ switchAuthHandler }) => {
   };
 
   return (
-    <AnimatedBackground>
+    <>
       <div className="flex h-screen w-full items-center justify-center">
         <div className="rounded-xl bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
           <div className="text-white">
@@ -97,7 +97,7 @@ export const Register = ({ switchAuthHandler }) => {
           </div>
         </div>
       </div>
-    </AnimatedBackground>
+    </>
   );
 };
 
