@@ -5,6 +5,7 @@ import useUserName from '../../shared/hooks/useUserName';
 export const ItemModal = ({ open, handleClose, item }) => {
     if (!item) return null;
     const userName = useUserName(item.user);
+    const formattedDate = new Date(item.postedDate).toLocaleString();
 
     return (
         <Modal open={open} onClose={handleClose}>
@@ -25,13 +26,12 @@ export const ItemModal = ({ open, handleClose, item }) => {
                                 Condición: {item.condition}
                             </div>
                             <div className="mt-2 text-white">
-                                Fecha de Publicación: {item.postedDate}
+                                Fecha de publicación: {formattedDate}
                             </div>
                             <div className="flex items-center mt-6">
-                                <img className="object-cover object-center w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1531590878845-12627191e687?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt="User" />
                                 <div className="mx-4">
-                                    <h1 className="text-sm text-gray-700 dark:text-gray-200">{userName || 'Cargando usario...'}</h1>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">Lead Developer</p>
+                                    <h1 className="text-sm text-gray-500 dark:text-gray-400">Posted by</h1>
+                                    <p className="text-sm text-gray-700 dark:text-gray-200">{userName || 'Cargando usario...'}</p>
                                 </div>
                             </div>
                         </div>

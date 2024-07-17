@@ -1,8 +1,9 @@
 import React from 'react';
-import useUserName from '../../shared/hooks/useUserName'; 
+import useUserName from '../../shared/hooks/useUserName';
 
 export const CardItem = ({ item }) => {
   const userName = useUserName(item.user);
+  const formattedDate = new Date(item.postedDate).toLocaleString();
 
   return (
     <div className="max-w-full sm:max-w-xs md:max-w-sm lg:max-w-xs xl:max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10 cursor-pointer">
@@ -12,7 +13,7 @@ export const CardItem = ({ item }) => {
         <p className="text-sm text-gray-700 mb-1"><strong>Descripción:</strong> {item.description}</p>
         <p className="text-sm text-gray-700 mb-1"><strong>Categoría:</strong> {item.category}</p>
         <p className="text-sm text-gray-700 mb-1"><strong>Condición:</strong> {item.condition}</p>
-        <p className="text-sm text-gray-700 mb-1"><strong>Fecha de Publicación:</strong> {item.postedDate}</p>
+        <p className="text-sm text-gray-700 mb-1"><strong>Fecha de Publicación:</strong> {formattedDate}</p>
         <p className="text-sm text-gray-700 mb-1"><strong>Usuario:</strong> {userName || 'Cargando usuario...'}</p>
       </div>
     </div>
