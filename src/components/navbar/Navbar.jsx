@@ -33,14 +33,6 @@ export const Navbar = () => {
                         alt="DUA"
                         className="h-12"
                     />
-                    <div className="relative">
-                        <input
-                            type="text"
-                            placeholder="Buscar productos, marcas y más..."
-                            className="p-2 pl-10 pr-4 w-72 rounded border border-gray-300 focus:outline-none focus:border-blue-600"
-                        />
-                        <span className="absolute left-3 top-2 text-gray-400"><FiSearch className="h-5 w-5" /></span>
-                    </div>
                 </div>
 
                 {/* Desktop Menu */}

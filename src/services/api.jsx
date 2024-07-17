@@ -5,7 +5,7 @@ const apiClient = axios.create({
   timeout: 5000, // Aumentar el tiempo de espera a 5000ms
 });
 
-  
+
 export const login = async (data) => {
   try {
     return await apiClient.post("/auth/login", data);
@@ -29,3 +29,15 @@ export const register = async (data) => {
     };
   }
 };
+
+export const getItems = async () => {
+  try {
+    return await apiClient.get("/item/getAll");
+  } catch (e) {
+    console.error("Error en getItems:", e);
+    return {
+      error: true,
+      e,
+    };
+  }
+}
