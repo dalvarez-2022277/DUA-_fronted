@@ -30,7 +30,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-500 p-4 shadow-md relative">
+    <nav className="bg-indigo-800 p-4 shadow-md relative">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo and Search */}
         <div className="flex items-center space-x-4">
@@ -44,13 +44,13 @@ export const Navbar = () => {
         {/* Desktop Menu */}
         <div className={`lg:flex items-center space-x-4 ${isOpen ? 'block' : 'hidden'}`}>
           <div className="flex items-center space-x-1 p-2">
-            <button onClick={toggleModal} className="text-lg font-semibold">
+            <button onClick={toggleModal} className="text-lg font-semibold text-white">
               MyAccount
             </button>
           </div>
           {isAuthenticated ? (
             <>
-              <button onClick={handleLogout} className="flex items-center space-x-1 p-2">
+              <button onClick={handleLogout} className="flex items-center space-x-1 p-2 text-white">
                 <FiUser className="h-6 w-6" />
                 <span>Logout</span>
               </button>
@@ -80,7 +80,7 @@ export const Navbar = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="mt-2 container mx-auto flex justify-between items-center text-black">
+      <div className="mt-2 container mx-auto flex justify-between items-center text-white">
         <div className="lg:hidden flex space-x-4">
           <a href="#" className="p-2">Categorías</a>
           <a href="#" className="p-2">Ofertas</a>

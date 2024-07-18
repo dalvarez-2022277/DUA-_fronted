@@ -29,14 +29,14 @@ export const Profile = ({ onClose }) => {
     }
 
     return (
-        <div className="relative bg-blue-200 border border-blue-400 rounded-lg shadow-lg p-4 w-72">
+        <div className="relative bg-violet-400 border border-blue-400 rounded-lg shadow-lg p-4 w-72">
             {!isEditOpen && (
                 <>
                     <span className="absolute top-2 right-2 cursor-pointer" onClick={onClose}>
-                        <FiX className="h-6 w-6 text-gray-600" />
+                        <FiX className="h-6 w-6 text-white" />
                     </span>
                     <span className="absolute top-2 right-8 cursor-pointer" onClick={() => setIsEditOpen(true)}>
-                        <FiEdit className="h-6 w-6 text-gray-600" />
+                        <FiEdit className="h-6 w-6 text-white" />
                     </span>
                 </>
             )}
