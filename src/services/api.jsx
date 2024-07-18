@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  //baseURL: "http://localhost:3000/DonationPlace/v1",
-  baseURL: "https://node-js-donation-place-back.vercel.app/DonationPlace/v1",
+  //baseURL: "http://localhost:3000/DonationPlace/v1", URL PARA PROBAR LOCAL
+  baseURL: "https://node-js-donation-place-back.vercel.app/DonationPlace/v1", //DESPLEGADO
   timeout: 5000, // Aumentar el tiempo de espera a 5000ms
 });
 
