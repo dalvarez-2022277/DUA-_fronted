@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { addProduct as addProductRequest } from "../../services/api";
 
 const convertImageToBase64 = (img) => {
+    console.log(img);
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(img);

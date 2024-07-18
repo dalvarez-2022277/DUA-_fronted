@@ -43,16 +43,12 @@ export const ProductAdd = () => {
         }));
     };
 
-    const handleInputChange = (e) => {
-        const { name, value, files } = e.target;
-        setFormState((prevState) => ({
-            ...prevState,
-            [name]: files && files.length > 0 ? files[0] : value, // Verifica que haya archivos
-        }));
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("img: ",formState.img.value);
+        console.log("title: ",formState.title);
+
+        
         addProduct(
             formState.title.value,
             formState.description.value,
@@ -119,10 +115,12 @@ export const ProductAdd = () => {
                         <div>
                             <label className="block mb-1 text-gray-600 font-semibold">Image</label>
                             <Input
+                                field="img"
                                 type="file"
-                                name="img"
+                                label="img"
                                 className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-                                onChange={handleInputChange}
+                                value={formState.img.value}
+                                onChangeHandler={handleInputValueChange}
                                 required
                                 accept="image/*" // Asegúrate de que solo se seleccionen imágenes
                             />

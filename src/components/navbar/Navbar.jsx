@@ -37,6 +37,10 @@ export const Navbar = () => {
         navigate("/addProducts")
     }
 
+    const handleNavigateToListItems = () => {
+        navigate("/listItems")
+    }
+
     return (
         <nav className="bg-blue-500 p-4 shadow-md">
             <div className="container mx-auto flex justify-between items-center">
@@ -89,7 +93,7 @@ export const Navbar = () => {
                 </div>
                 <div className="hidden lg:flex space-x-4">
                     <NavButton className="p-2" text="Agregar Producto" onClickHandler={handleNavigateToAddProducts} />
-                    <a href="#" className="p-2">Ofertas</a>
+                    <NavButton  className="p-2" text="List Products" onClickHandler={handleNavigateToListItems} />
                     <a href="#" className="p-2">Historial</a>
                     <a href="#" className="p-2">Supermercado</a>
                     <a href="#" className="p-2">Moda</a>
