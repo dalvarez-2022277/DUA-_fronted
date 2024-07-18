@@ -1,15 +1,19 @@
 import React from 'react';
 import { Modal, Box } from '@mui/material';
 import useUserName from '../../shared/hooks/useUserName';
+import { CommentForm } from '../Comments/CommentForm'; // Ajusta la ruta según sea necesario
+import { ListComments } from '../Comments/ListComments'; // Ajusta la ruta según sea necesario
 
 export const ItemModal = ({ open, handleClose, item }) => {
     if (!item) return null;
     const userName = useUserName(item.user);
     const formattedDate = new Date(item.postedDate).toLocaleString();
 
+ 
+
     return (
         <Modal open={open} onClose={handleClose}>
-            <Box className="bg-white dark:bg-gray-900 p-6 mx-auto mt-10 max-w-3xl rounded-lg shadow-lg">
+            <Box className="bg-white dark:bg-gray-900 p-6 mx-auto mt-10 max-w-3xl rounded-lg shadow-lg overflow-y-auto" style={{ maxHeight: '80vh' }}>
                 <div className="container mx-auto">
                     <h1 className="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">{item.title}</h1>
                     <div className="mt-8 lg:flex lg:items-center">
@@ -30,12 +34,14 @@ export const ItemModal = ({ open, handleClose, item }) => {
                             </div>
                             <div className="flex items-center mt-6">
                                 <div className="mx-4">
-                                    <h1 className="text-sm text-gray-500 dark:text-gray-400">Posted by</h1>
-                                    <p className="text-sm text-gray-700 dark:text-gray-200">{userName || 'Cargando usario...'}</p>
+                                    <h1 className="text-sm text-gray-500 dark:text-gray-400">Publicado por</h1>
+                                    <p className="text-sm text-gray-700 dark:text-gray-200">{userName || 'Cargando usuario...'}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <ListComments comments={item.comments} />
+                    <CommentForm itemId={item._id} />
                 </div>
             </Box>
         </Modal>
