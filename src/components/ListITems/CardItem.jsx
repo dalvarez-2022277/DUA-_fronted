@@ -4,14 +4,14 @@ import useUserName from '../../shared/hooks/useUserName';
 export const CardItem = ({ item, loggedUserId, removeItem, loading, error }) => {
   if (!item || !item._id) {
     console.error('Item o ID del item no está definido', item);
-    return null; // No renderiza el componente si el item o el ID no están definidos
+    return null; 
   }
 
   const userName = useUserName(item.user);
   const formattedDate = new Date(item.postedDate).toLocaleString();
 
   const handleDelete = async (event) => {
-    event.stopPropagation(); // Detiene la propagación del evento
+    event.stopPropagation(); 
     if (item._id) {
       console.log(`Intentando eliminar el item con ID: ${item._id}`); // Verifica el ID
       await removeItem(item._id);

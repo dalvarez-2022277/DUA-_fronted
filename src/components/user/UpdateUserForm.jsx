@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useUpdateUser } from "../../shared/hooks/useUpdateUser";
 import { FiX } from "react-icons/fi";
 
-export const UpdateUserForm = ({ userId, initialData, onClose }) => {
+export const UpdateUserForm = ({ userId, initialData, onClose, onUpdateSuccess }) => {
   const { updateUser, loading, error, success } = useUpdateUser();
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     phone: "",
     currentPassword: "",
     newPassword: "",
   });
 
   useEffect(() => {
-    // Initialize the form with the user's current data
     setFormData({
       name: initialData.name || "",
+      email: initialData.email || "",
       phone: initialData.phone || "",
       currentPassword: "",
       newPassword: "",
@@ -29,18 +30,23 @@ export const UpdateUserForm = ({ userId, initialData, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a new object to only include fields to be updated
     const updateData = {
       name: formData.name,
+      email: formData.email,
       phone: formData.phone,
     };
-    if (formData.currentPassword && formData.newPassword) {
+
+    if (formData.currentPassword) {
       updateData.currentPassword = formData.currentPassword;
-      updateData.newPassword = formData.newPassword;
+      if (formData.newPassword) {
+        updateData.newPassword = formData.newPassword;
+      }
     }
 
-    await updateUser(userId, updateData);
-    if (success) onClose(); // Close the form if the update is successful
+    const response = await updateUser(userId, updateData);
+    if (response && !response.error) {
+      onUpdateSuccess();
+    }
   };
 
   return (
@@ -69,34 +75,23 @@ export const UpdateUserForm = ({ userId, initialData, onClose }) => {
         />
       </div>
       <div>
+        <label htmlFor="email">Correo electrónico:</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="block w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      <div>
         <label htmlFor="phone">Teléfono:</label>
         <input
           id="phone"
           name="phone"
           type="text"
           value={formData.phone}
-          onChange={handleChange}
-          className="block w-full p-2 border border-gray-300 rounded"
-        />
-      </div>
-      <div>
-        <label htmlFor="currentPassword">Contraseña actual:</label>
-        <input
-          id="currentPassword"
-          name="currentPassword"
-          type="password"
-          value={formData.currentPassword}
-          onChange={handleChange}
-          className="block w-full p-2 border border-gray-300 rounded"
-        />
-      </div>
-      <div>
-        <label htmlFor="newPassword">Nueva contraseña:</label>
-        <input
-          id="newPassword"
-          name="newPassword"
-          type="password"
-          value={formData.newPassword}
           onChange={handleChange}
           className="block w-full p-2 border border-gray-300 rounded"
         />

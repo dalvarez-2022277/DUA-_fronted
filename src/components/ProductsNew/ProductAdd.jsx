@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAddProduct } from "../../shared/hooks/useAddProduct";
 import { Box, Button, TextField, Typography, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import Dropzone from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 const CONDITIONS = ['NEW', 'USED', 'REFURBISHED', 'DAMAGED', 'FOR PARTS'];
 
 export const ProductAdd = () => {
     const { addProduct, isLoading, error } = useAddProduct();
+    const navigate = useNavigate();
 
     const [formState, setFormState] = useState({
         title: '',
@@ -71,12 +73,14 @@ export const ProductAdd = () => {
                     img: !img
                 }
             }));
+            toast.error("All fields are required to add a product."); 
             return;
         }
 
         try {
             await addProduct(title, description, category, condition, img);
-            toast.success("Product added successfully!"); // Mostrar mensaje de éxito
+            toast.success("Product added successfully!"); 
+            navigate("/listItems"); 
             setFormState({
                 title: '',
                 description: '',
@@ -90,18 +94,18 @@ export const ProductAdd = () => {
                     condition: false,
                     img: false
                 }
-            }); // Limpiar formulario
-        } catch (error) {
-            toast.error("Failed to add product. Please try again."); // Mostrar mensaje de error
+            });
+        } catch (error){
+            toast.error("Failed to add product. Please try again."); 
         }
     };
 
     return (
-        <Box className="h-screen bg-gradient-to-br flex justify-center items-center w-full">
-            <form onSubmit={handleSubmit}>
-                <Box className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
-                    <Box className="space-y-4">
-                        <Typography variant="h6" align="center" color="textSecondary">
+        <Box className="h-screen bg-gradient-to-br flex justify-center items-start w-full">
+            <Box mt={8} sx={{ width: '100%', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+                <form onSubmit={handleSubmit}>
+                    <Box sx={{ bgcolor: 'white', p: 4, borderRadius: 2, boxShadow: 3, maxWidth: 400 }}>
+                        <Typography variant="h5" align="center" gutterBottom>
                             Add Item
                         </Typography>
                         <TextField
@@ -113,6 +117,7 @@ export const ProductAdd = () => {
                             onChange={handleInputChange}
                             error={formState.errors.title}
                             helperText={formState.errors.title && "Title is required"}
+                            margin="normal"
                         />
                         <TextField
                             name="description"
@@ -123,6 +128,7 @@ export const ProductAdd = () => {
                             onChange={handleInputChange}
                             error={formState.errors.description}
                             helperText={formState.errors.description && "Description is required"}
+                            margin="normal"
                         />
                         <TextField
                             name="category"
@@ -133,8 +139,14 @@ export const ProductAdd = () => {
                             onChange={handleInputChange}
                             error={formState.errors.category}
                             helperText={formState.errors.category && "Category is required"}
+                            margin="normal"
                         />
-                        <FormControl fullWidth variant="outlined" error={formState.errors.condition}>
+                        <FormControl
+                            variant="outlined"
+                            fullWidth
+                            error={formState.errors.condition}
+                            margin="normal"
+                        >
                             <InputLabel>Condition</InputLabel>
                             <Select
                                 name="condition"
@@ -152,7 +164,7 @@ export const ProductAdd = () => {
                                 <Typography color="error" variant="body2">Condition is required</Typography>
                             )}
                         </FormControl>
-                        <Box>
+                        <Box mt={2}>
                             <Typography variant="subtitle1" color="textSecondary" gutterBottom>
                                 Image
                             </Typography>
@@ -195,24 +207,24 @@ export const ProductAdd = () => {
                                 <Typography color="error">Image is required</Typography>
                             )}
                         </Box>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            disabled={isLoading}
+                            sx={{ mt: 3 }}
+                        >
+                            {isLoading ? "Adding..." : "Add Product"}
+                        </Button>
+                        {error && (
+                            <Typography color="error" align="center" sx={{ mt: 2 }}>
+                                {error}
+                            </Typography>
+                        )}
                     </Box>
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        disabled={isLoading}
-                        sx={{ mt: 3 }}
-                    >
-                        {isLoading ? "Adding..." : "Add Product"}
-                    </Button>
-                    {error && (
-                        <Typography color="error" align="center" sx={{ mt: 2 }}>
-                            {error}
-                        </Typography>
-                    )}
-                </Box>
-            </form>
+                </form>
+            </Box>
         </Box>
     );
 };

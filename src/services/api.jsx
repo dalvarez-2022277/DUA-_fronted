@@ -104,7 +104,12 @@ export const getOneUser = async (id) => {
 
 export const putUser = async (id, data) => {
   try {
-    return await apiClient.put(`/user/update/${id}`, data);
+    const response = await apiClient.put(`/user/update/${id}`, data);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Failed to update user");
+    }
   } catch (e) {
     return {
       error: true,
@@ -112,6 +117,7 @@ export const putUser = async (id, data) => {
     };
   }
 };
+
 
 export const deleteItem = async (id) => {
   try {

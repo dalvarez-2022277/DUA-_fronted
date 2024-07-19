@@ -63,23 +63,23 @@ export const ListItem = () => {
   const loggedUserId = userDetails ? userDetails.id : null;
 
   return (
-    <div>
+    <div className="p-4">
       {loadingItems && <p>Cargando...</p>}
       {error && <p>Hubo un error: {error}</p>}
-      <div className="mb-4 flex justify-center items-center">
+      <div className="mb-4 flex flex-col sm:flex-row justify-center items-center">
         <Search 
           searchTerm={searchTerm} 
           setSearchTerm={setSearchTerm} 
-          filteredItems={filteredItems} // Pasa los elementos filtrados
-          onSearch={(term) => setSearchTerm(term)} // Define la función onSearch
+          filteredItems={filteredItems} 
+          onSearch={(term) => setSearchTerm(term)} 
         />
-        <div className="mt-10 ml-2">
+        <div className="mt-4 sm:mt-0 sm:ml-2">
           <CategoryFilter categories={categories} filterByCategory={filterByCategory} />
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {filteredItems.map((item, index) => (
-          <div key={index} onClick={() => handleItemClick(item)}>
+          <div key={index} className="transform scale-90 sm:scale-100" onClick={() => handleItemClick(item)}>
             <CardItem 
               item={item} 
               loggedUserId={loggedUserId} 

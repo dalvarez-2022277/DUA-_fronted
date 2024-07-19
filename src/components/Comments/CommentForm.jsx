@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
-import { useSubmitComment } from '../../shared/hooks/useSubmitComment'; // Ajusta la ruta según sea necesario
+import React, { useState, useEffect } from 'react';
+import { useSubmitComment } from '../../shared/hooks/useSubmitComment'; 
+import { toast } from 'react-hot-toast';
 
 export const CommentForm = ({ itemId }) => {
     const [text, setText] = useState('');
-    const [error, setError] = useState(null); // Estado para manejar el error
-    const { submitCommentHandler } = useSubmitComment();
+    const { submitCommentHandler, error } = useSubmitComment();
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+        }
+    }, [error]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (text.trim() === '') {
-            setError('El comentario no puede estar vacío.');
+            toast.error('El comentario no puede estar vacío.');
             return;
         }
 
         const newComment = await submitCommentHandler(itemId, text);
         if (newComment) {
-            window.location.reload();
             setText('');
-            setError(null); // Limpiar el error después de enviar correctamente
+            toast.success('Comentario enviado exitosamente.');
         }
     };
 
@@ -38,7 +43,6 @@ export const CommentForm = ({ itemId }) => {
                 >
                     Enviar comentario
                 </button>
-                {error && <p className="text-red-500 mt-2">{error}</p>}
             </div>
         </form>
     );

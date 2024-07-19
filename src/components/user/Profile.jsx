@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useUserProfile } from "../../shared/hooks/useUserProfile";
-import { FiX, FiEdit2, FiEdit } from "react-icons/fi";
+import { FiX, FiEdit } from "react-icons/fi";
 import { UpdateUserForm } from "../user/UpdateUserForm";
 
 export const Profile = ({ onClose }) => {
-  const { userData, loading, fetchUserProfile } = useUserProfile(); // Agregar fetchUserProfile desde el hook useUserProfile
+  const { userData, loading, fetchUserProfile } = useUserProfile();
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [shouldReloadProfile, setShouldReloadProfile] = useState(false); // Estado para forzar la recarga del perfil
+  const [shouldReloadProfile, setShouldReloadProfile] = useState(false);
 
   useEffect(() => {
     if (shouldReloadProfile) {
-      fetchUserProfile(); // Llama a la función para volver a cargar los datos del usuario
-      setShouldReloadProfile(false); // Reinicia el estado
+      fetchUserProfile();
+      setShouldReloadProfile(false);
     }
   }, [shouldReloadProfile, fetchUserProfile]);
 
   const handleUpdateSuccess = () => {
-    setIsEditOpen(false); // Cierra el formulario de edición
-    setShouldReloadProfile(true); // Activa la recarga del perfil
+    setIsEditOpen(false);
+    setShouldReloadProfile(true);
   };
 
   if (loading) {
@@ -55,7 +55,7 @@ export const Profile = ({ onClose }) => {
           userId={userData.uid}
           initialData={userData}
           onClose={() => setIsEditOpen(false)}
-          onUpdateSuccess={handleUpdateSuccess} // Pasa la función de actualización exitosa al formulario
+          onUpdateSuccess={handleUpdateSuccess}
         />
       ) : (
         <>
