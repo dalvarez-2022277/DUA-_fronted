@@ -1,15 +1,16 @@
 import React from 'react';
 import { Modal, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';  // Add this import
 import useUserName from '../../shared/hooks/useUserName';
-import { CommentForm } from '../Comments/CommentForm'; // Ajusta la ruta según sea necesario
-import { ListComments } from '../Comments/ListComments'; // Ajusta la ruta según sea necesario
+import { CommentForm } from '../Comments/CommentForm';
+import { ListComments } from '../Comments/ListComments';
 
 export const ItemModal = ({ open, handleClose, item }) => {
     if (!item) return null;
     const userName = useUserName(item.user);
+    console.log('id xdds', item.user);
     const formattedDate = new Date(item.postedDate).toLocaleString();
-
- 
+    const navigate = useNavigate();  // Add this line
 
     return (
         <Modal open={open} onClose={handleClose}>
@@ -38,6 +39,12 @@ export const ItemModal = ({ open, handleClose, item }) => {
                                     <p className="text-sm text-gray-700 dark:text-gray-200">{userName || 'Cargando usuario...'}</p>
                                 </div>
                             </div>
+                            <button
+                                onClick={() => navigate('/chat', { state: { receiverId: item.user, name: userName } })}
+                                className="mt-4 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
+                            >
+                                Go to Chat
+                            </button>
                         </div>
                     </div>
                     <ListComments comments={item.comments} />

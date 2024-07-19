@@ -23,7 +23,7 @@ export const useAuth = () => {
     };
 
     fetchUser();
-  }, []); // Dependencias vacías para que se ejecute solo una vez al montar
+  }, []);
 
-  return { user, loading, error };
+  return { user, loading, error, userName: user?.name };
 };

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiClient = axios.create({
   baseURL: "https://node-js-donation-place-back.vercel.app/DonationPlace/v1",
-  // baseURL: "http://localhost:3000/DonationPlace/v1",
+  //baseURL: "http://localhost:3000/DonationPlace/v1",
   timeout: 5000, // Aumentar el tiempo de espera a 5000ms
 });
 
@@ -20,6 +20,7 @@ apiClient.interceptors.request.use(
     return Promise.reject(e);
   }
 );
+
 
 export const login = async (data) => {
   try {
@@ -138,6 +139,28 @@ export const getUserByToken = async () => {
     return {
       error: true,
       message: error.message,
+    };
+  }
+};
+
+export const sendMessages = async (data) => {
+  try {
+    return await apiClient.post('/chat/message', data);
+  } catch (e) {
+    return {
+      error: true,
+      e
+    };
+  }
+};
+
+export const getMessages = async (receiverId) => {
+  try {
+    return await apiClient.get(`/chat/messages/${receiverId}`);
+  } catch (e) {
+    return {
+      error: true,
+      e
     };
   }
 };

@@ -3,6 +3,7 @@ import { ProductAdd } from '../ProductsNew/ProductAdd.jsx';
 import { ListItem } from '../ListITems/ListItem.jsx';
 import { Lema } from '../lema/Lema.jsx'
 import { ListMy } from '../ListITems/ListMy.jsx';
+import { Chat } from '../chat/Chat.jsx';
 
 export const ContentAll = () => {
     return(
@@ -11,6 +12,7 @@ export const ContentAll = () => {
             <Route path="listItems" element={<ListItem />} />
             <Route path='lema' element={ <Lema /> } /> 
             <Route path='listMy' element={ <ListMy /> } /> 
+            <Route path='chat' element={ <Chat /> } />
         </Routes>
     )
 
