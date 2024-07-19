@@ -10,9 +10,11 @@ export const Input = ({
   validationMessage,
   onBlurHandler,
   textarea,
+  accept,
 }) => {
   const handleValueChange = (event) => {
-    onChangeHandler(event.target.value, field);
+    const newValue = type === 'file' ? event.target.files[0] : event.target.value;
+    onChangeHandler(newValue, field);
   };
 
   const handleInputBlur = (event) => {
@@ -61,10 +63,11 @@ export const Input = ({
           <input
             className="rounded-3xl border-none bg-blue-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md w-full"
             type={type}
-            value={value}
+            value={type === 'file' ? undefined : value} // No definir value para type="file"
             onChange={handleValueChange}
             onBlur={handleInputBlur}
             placeholder={label}
+            accept={accept}
           />
         )}
       </div>

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://node-js-donation-place-back.vercel.app/DonationPlace/v1",
- // baseURL: "http://localhost:3000/DonationPlace/v1",
+  //baseURL: "https://node-js-donation-place-back.vercel.app/DonationPlace/v1",
+  baseURL: "http://localhost:3000/DonationPlace/v1",
   timeout: 5000, // Aumentar el tiempo de espera a 5000ms
 });
 
@@ -43,13 +43,9 @@ export const register = async (data) => {
   }
 };
 
-export const addProduct = async (formData) => {
+export const addProduct = async (data) => {
   try {
-    return await apiClient.post('/item/postProduct', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
+    return await apiClient.post('/item/postProduct', data);
   } catch (e) {
     return {
       error: true,
