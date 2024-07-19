@@ -39,7 +39,7 @@ export const Navbar = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('name');
         localStorage.removeItem('num');
-        window.location.href = './auth';
+        window.location.href = '/auth';
     };
 
     const handleNavigateToAddProducts = () => {
