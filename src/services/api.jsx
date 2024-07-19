@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  //baseURL: "https://node-js-donation-place-back.vercel.app/DonationPlace/v1",
-  baseURL: "http://localhost:3000/DonationPlace/v1",
+  baseURL: "https://node-js-donation-place-back.vercel.app/DonationPlace/v1",
+  //baseURL: "http://localhost:3000/DonationPlace/v1",
   timeout: 5000, // Aumentar el tiempo de espera a 5000ms
 });
 
@@ -86,5 +86,18 @@ export const submitComment = async (itemId, text) => {
   } catch (error) {
     console.error('Error en submitComment:', error);
     throw error;
+  }
+};
+
+export const getUserByToken = async () => {
+  try {
+    const response = await apiClient.get(`/user/my/`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error en getUserByToken  :,v`, error);
+    return {
+      error: true,
+      message: error.message,
+    };
   }
 };
