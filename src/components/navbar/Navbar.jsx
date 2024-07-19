@@ -57,6 +57,9 @@ export const Navbar = () => {
     const handleNavigateToLema = () => {
         navigate('/lema');
     };
+    const handleNavigateToChat = () => {
+        navigate('/chat');
+    };
 
     return (
         <nav className="bg-indigo-800 p-4 shadow-lg">
@@ -118,6 +121,7 @@ export const Navbar = () => {
                         <>
                             <NavButton text="Agregar Producto" onClickHandler={handleNavigateToAddProducts} />
                             <NavButton text="Historial" className="p-2 hover:text-gray-300 transition duration-300 font-mono" onClickHandler={handleNavigateToListMy} />
+                            <NavButton text="CHat" className="p-2 hover:text-gray-300 transition duration-300 font-mono" onClickHandler={handleNavigateToChat} />
                         </>
                     )}
                 </div>

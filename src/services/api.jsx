@@ -147,3 +147,24 @@ export const getUserByToken = async () => {
     };
   }
 };
+export const sendMessages = async (data) => {
+  try {
+    return await apiClient.post('/chat/message', data);
+  } catch (e) {
+    return {
+      error: true,
+      e
+    };
+  }
+};
+
+export const getMessages = async (receiverId) => {
+  try {
+    return await apiClient.get(`/chat/messages/${receiverId}`);
+  } catch (e) {
+    return {
+      error: true,
+      e
+    };
+  }
+};
